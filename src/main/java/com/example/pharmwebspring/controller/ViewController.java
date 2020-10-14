@@ -44,9 +44,9 @@ public class ViewController {
         return "cart";
     }
 
-    @GetMapping("/checkout")
-    public String checkoutpage(){
-        return "checkout";
+    @GetMapping("/order")
+    public String orderpage(){
+        return "order";
     }
 
     @GetMapping("/custom")
