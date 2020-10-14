@@ -144,7 +144,7 @@ public class ViewController {
         return "shop_urology";
     }
 
-    @GetMapping("/shp_vitamin")
+    @GetMapping("/shop_vitamin")
     public String shop_vitaminpage(){
         return "shop_vitamin";
     }
