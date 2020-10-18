@@ -69,3 +69,78 @@ $("#pharmLoginBtn").on('click',()=>{ //.on 이벤트 트리거
 //         }
 //     })
 // })
+
+
+$.ajax({
+    url:'/api/llocation',
+    type:"GET",
+    dataType:"text",
+    contentType: "application/xml; charset=utf-8;",
+    success:function (data){
+
+        if(data){
+            map=new kakao.maps.Map('map', mapOption);
+
+            $(data).find('item').each(function (){
+                var wgs84Lat=$(this).find("wgs84Lat").text();
+                var wgs84Lon=$(this).find("wgs84Lon").text();
+
+                marker=new kakao.maps.Marker({
+                    map:map,
+                    position: new kakao.maps.LatLng(wgs84Lon, wgs84Lat)
+                })
+
+            })
+        }
+    }
+})
+
+
+
+/*$("#btn_map").on('click',()=> {
+    $.ajax({
+        url: '/index',
+        type: 'POST',
+        dataType: 'html',
+        success: function () {
+            /*$(document).reday(function(){
+                $('#btn_map').click(function(){
+                    $(location).attr("href","location.html");
+                });
+            });*/
+
+               /* document.location.href = "location";
+
+        }
+    })
+})*/
+
+/*$(function (){
+    $('#btn_map').click(function (){
+        location.href = 'location.html';
+    });
+});*/
+
+function PageMove(){
+    $("#btn_map").on('click',()=>{
+        $.ajax({
+            url: "/location",
+            async : true,
+            type : "POST",
+            dataType : "html",
+            cache : false
+        })
+    })
+    /*var ajaxOption = {
+        url: "/index",
+        async : true,
+        type : "POST",
+        dataType : "html",
+        cache : false
+    };*/
+
+   /* $.ajax(ajaxOption).click(function (data){
+        //$('#index').children().remove();
+        $('#location').html(data);
+    })*/
+}

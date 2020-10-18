@@ -5,8 +5,23 @@ import com.example.pharmwebspring.Model.Pharmacy;
 import com.example.pharmwebspring.Model.RegisterRes;
 import com.example.pharmwebspring.Model.User;
 import com.example.pharmwebspring.Service.LoginService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Member;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -87,5 +102,39 @@ public class APIController {
         }
         return registerRes;
     }
+
+
+
+    @RequestMapping(value = "/llocation", method = RequestMethod.GET, produces = "application/text;charset=utf8")
+    public String location(Local local, Model model) throws IOException {
+        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyFullDown");
+
+        urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=hKyEVkCoDXA2F8YRMshfBtDUTrs7QSbgYJ%2FiiR11pb%2FqeaLKuTC1%2F6LgUkKOHW5eMi8EDmwUeEwi0RMEtAMM8Q%3D%3D&pageNO=1&numOfRows=100&");
+
+        URL url = new URL(urlBuilder.toString());
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/xml;charset=UTF-8");
+
+        BufferedReader rd;
+        if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+
+        rd.close();
+        conn.disconnect();
+        return sb.toString();
+        //return "location";
+    }
+
 
 }

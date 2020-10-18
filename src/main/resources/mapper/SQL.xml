@@ -19,4 +19,5 @@
         select * from parmdb.user where user_id=#{login_id} and user_pw=#{login_pw}
     </select>
 
+
 </mapper>

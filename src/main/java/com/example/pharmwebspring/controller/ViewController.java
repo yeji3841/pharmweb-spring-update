@@ -1,5 +1,6 @@
 package com.example.pharmwebspring.controller;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
@@ -7,22 +8,39 @@ import com.example.pharmwebspring.Model.*;
 import com.example.pharmwebspring.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Member;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
 public class ViewController {
 
-    @GetMapping("/index")
+    @RequestMapping("/index")
+    public String index(Model model) {
+            return "index";
+    }
+
+    @RequestMapping(value = "/location", method = RequestMethod.GET)
+    public String location(Model model) {
+        return "location";
+    }
+
+    /*@GetMapping("/index")
     public String indexpage(){
         return "index";
-    }
+    }*/
 
     @GetMapping("/register")
     public String resgisterpage(){
@@ -64,10 +82,41 @@ public class ViewController {
         return "header";
     }
 
-    @GetMapping("/location")
-    public String locationpage(){
-        return "location";
-    }
+   /* @RequestMapping(value = "/location", method = RequestMethod.GET, produces = "application/text;charset=utf8")
+    public String location(Local local, Model model) throws IOException {
+        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyFullDown");
+
+        urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=hKyEVkCoDXA2F8YRMshfBtDUTrs7QSbgYJ%2FiiR11pb%2FqeaLKuTC1%2F6LgUkKOHW5eMi8EDmwUeEwi0RMEtAMM8Q%3D%3D&pageNO=1&numOfRows=100&");
+
+        URL url = new URL(urlBuilder.toString());
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/xml;charset=UTF-8");
+
+        BufferedReader rd;
+        if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+
+        rd.close();
+        conn.disconnect();
+        return sb.toString();
+        //return "location";
+    }*/
+
+    /*@GetMapping("/location")
+    public String locationpage() {return "location";}
+
+     */
 
     @GetMapping("/main")
     public String mainpage(){

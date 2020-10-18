@@ -2,6 +2,7 @@ package com.example.pharmwebspring.Service.Impl;
 
 import com.example.pharmwebspring.DAO.LoginDAO;
 import com.example.pharmwebspring.Model.Login;
+import com.example.pharmwebspring.Model.PharmAPI;
 import com.example.pharmwebspring.Model.Pharmacy;
 import com.example.pharmwebspring.Model.User;
 import com.example.pharmwebspring.Service.LoginService;
@@ -29,5 +30,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Pharmacy checkPharmacy(Login login) { return dao.getPharmacy(login); }
 
+   /* @Override
+    public void insertPharmAPI(PharmAPI pharmAPI) {dao.setPharmAPI(pharmAPI);}
+
+    @Override
+    public PharmAPI checkPharmAPI(PharmAPI pharmAPI){return dao.getPharmAPI(pharmAPI);}*/
 
 }
