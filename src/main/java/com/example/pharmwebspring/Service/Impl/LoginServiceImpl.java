@@ -9,6 +9,8 @@ import com.example.pharmwebspring.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -35,5 +37,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public PharmAPI checkPharmAPI(PharmAPI pharmAPI){return dao.getPharmAPI(pharmAPI);}*/
+
+    @Override
+    public List<PharmAPI> printloc(){
+        List<PharmAPI> member =dao.getloc();
+        return member;
+    }
 
 }

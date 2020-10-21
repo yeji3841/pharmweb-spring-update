@@ -22,6 +22,7 @@ public interface LoginDAO {
    /* void setPharmAPI(PharmAPI pharmAPI);
     PharmAPI getPharmAPI(PharmAPI pharmAPI);*/
 
+    List<PharmAPI> getloc();
 
 
 }

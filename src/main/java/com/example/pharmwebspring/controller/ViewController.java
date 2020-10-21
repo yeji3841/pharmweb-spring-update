@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
 import com.example.pharmwebspring.Model.*;
+import com.example.pharmwebspring.Model.PharmAPI;
 import com.example.pharmwebspring.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -27,14 +28,21 @@ import java.util.List;
 @Controller
 public class ViewController {
 
+    @Autowired
+    LoginService loginService;
+
     @RequestMapping("/index")
     public String index(Model model) {
             return "index";
     }
 
-    @RequestMapping(value = "/location", method = RequestMethod.GET)
+    @RequestMapping("/location")
     public String location(Model model) {
-        return "location";
+       List<PharmAPI> member = loginService.printloc();
+
+       model.addAttribute("memberList", member);
+
+       return "location";
     }
 
     /*@GetMapping("/index")
@@ -207,4 +215,10 @@ public class ViewController {
     public String tipspage(){
         return "tips";
     }
+
+    @GetMapping("/getapi")
+    public String getapipage(){
+        return "getapi";
+    }
+
 }

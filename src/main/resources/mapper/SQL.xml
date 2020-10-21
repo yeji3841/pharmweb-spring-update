@@ -19,5 +19,8 @@
         select * from parmdb.user where user_id=#{login_id} and user_pw=#{login_pw}
     </select>
 
+    <select id="getloc" parameterType="com.example.pharmwebspring.Model.PharmAPI" resultType="com.example.pharmwebspring.Model.PharmAPI">
+        select * from parmdb.pharmacyapi where wgs84Lat=#{lat} and wgs84Lon=#{lon}
+    </select>
 
 </mapper>

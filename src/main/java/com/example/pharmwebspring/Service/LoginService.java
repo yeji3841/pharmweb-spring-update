@@ -18,5 +18,6 @@ public interface LoginService {
     /*void insertPharmAPI(PharmAPI pharmAPI);
     PharmAPI checkPharmAPI(PharmAPI pharmAPI);*/
 
+    List<PharmAPI> printloc();
 
 }
